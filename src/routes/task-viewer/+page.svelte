@@ -50,8 +50,6 @@
 
 	let showAdd = false;
 
-	$: console.log(appCode, route);
-
 	// #region Handle messages from parent
 
 	function handleParentMessage({ data }: MessageEvent) {
