@@ -12,6 +12,12 @@ dependencies:
     version: 2.17.0
 
 devDependencies:
+  '@sveltejs/adapter-auto':
+    specifier: ^2.0.0
+    version: 2.0.0(@sveltejs/kit@1.5.0)
+  '@sveltejs/adapter-netlify':
+    specifier: ^2.0.6
+    version: 2.0.6(@sveltejs/kit@1.5.0)
   '@sveltejs/adapter-vercel':
     specifier: ^2.4.1
     version: 2.4.1(@sveltejs/kit@1.5.0)
@@ -508,6 +514,10 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
+  /@iarna/toml@2.2.5:
+    resolution: {integrity: sha512-trnsAYxU3xnS1gPHPyU961coFyLkh4gAD/0zQ5mymY4yOZ+CYvsPqUbOFSw0aDM4y0tV7tiFxL/1XfXPNC6IPg==}
+    dev: true
+
   /@iconify/types@2.0.0:
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
     dev: false
@@ -599,6 +609,26 @@ packages:
     dependencies:
       estree-walker: 2.0.2
       picomatch: 2.3.1
+    dev: true
+
+  /@sveltejs/adapter-auto@2.0.0(@sveltejs/kit@1.5.0):
+    resolution: {integrity: sha512-b+gkHFZgD771kgV3aO4avHFd7y1zhmMYy9i6xOK7m/rwmwaRO8gnF5zBc0Rgca80B2PMU1bKNxyBTHA14OzUAQ==}
+    peerDependencies:
+      '@sveltejs/kit': ^1.0.0
+    dependencies:
+      '@sveltejs/kit': 1.5.0(svelte@3.54.0)(vite@4.2.0)
+      import-meta-resolve: 2.2.2
+    dev: true
+
+  /@sveltejs/adapter-netlify@2.0.6(@sveltejs/kit@1.5.0):
+    resolution: {integrity: sha512-9guxI9jG/v/JTr/I1E1YGKppKWRyvs60VuhPJcGBrj2MfoBxR40vhxkrWPFcNJoAdyQUSjqxbg7sZLA4WbNfgA==}
+    peerDependencies:
+      '@sveltejs/kit': ^1.5.0
+    dependencies:
+      '@iarna/toml': 2.2.5
+      '@sveltejs/kit': 1.5.0(svelte@3.54.0)(vite@4.2.0)
+      esbuild: 0.16.17
+      set-cookie-parser: 2.6.0
     dev: true
 
   /@sveltejs/adapter-vercel@2.4.1(@sveltejs/kit@1.5.0):
@@ -1641,6 +1671,10 @@ packages:
     dependencies:
       parent-module: 1.0.1
       resolve-from: 4.0.0
+    dev: true
+
+  /import-meta-resolve@2.2.2:
+    resolution: {integrity: sha512-f8KcQ1D80V7RnqVm+/lirO9zkOxjGxhaTC1IPrBGd3MEfNgmNG67tSUO9gTi2F3Blr2Az6g1vocaxzkVnWl9MA==}
     dev: true
 
   /imurmurhash@0.1.4:
