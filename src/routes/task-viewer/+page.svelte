@@ -10,6 +10,7 @@
 	import AddTask from './AddTask.svelte';
 	import Pagination from '$lib/components/Pagination.svelte';
 	import TaskFilters from './TaskFilters.svelte';
+	import { Events, type DevToolsMessageEvent } from 'developer-tools-common-language';
 
 	export let data;
 
@@ -37,7 +38,7 @@
 
 	// #endregion
 
-	let routeNotRegistered: string | null = null;
+	let routeNotConfigured: string | null = null;
 
 	let hideMessageTimeout: number | undefined;
 	$: showMessage = Boolean($pageStore.form?.message);
@@ -52,16 +53,16 @@
 
 	// #region Handle messages from parent
 
-	function handleParentMessage({ data }: MessageEvent) {
+	function handleParentMessage({ data }: DevToolsMessageEvent) {
 		if (!data) return;
-		if (data.type === 'route-changed') {
+		if (data.type === Events.TaskViewer.ParentRouteChanged) {
 			appCode = data.payload.appCode;
 			route = data.payload.route;
 			page = 1;
-			routeNotRegistered = null;
-		} else if (data.type === 'route-not-registered') {
+			routeNotConfigured = null;
+		} else if (data.type === Events.TaskViewer.RouteNotConfigured) {
 			route = '';
-			routeNotRegistered = data.payload.route;
+			routeNotConfigured = data.payload.route;
 		}
 	}
 
@@ -93,22 +94,28 @@
 		tasks = [...tasks];
 	}
 
-	function subscribe() {
+	function subscribeToIssueUpdates() {
 		const sse = new EventSource('/task-viewer');
 		sse.onmessage = handleQueuedIssue;
 		return () => sse.close();
 	}
 
-	onMount(subscribe);
-
 	// #endregion
+
+	onMount(function () {
+		const unsubscribeFromIssueUpdates = subscribeToIssueUpdates();
+		window.parent.postMessage({ type: Events.TaskViewer.Loaded, payload: null }, '*');
+		return function () {
+			unsubscribeFromIssueUpdates();
+		};
+	});
 </script>
 
 <svelte:window on:message={handleParentMessage} />
 
 <div class="relative flex h-screen w-full flex-col overflow-hidden">
-	{#if routeNotRegistered}
-		<span>Your route {routeNotRegistered} is not registered.</span>
+	{#if routeNotConfigured}
+		<span>Your route {routeNotConfigured} is not configured.</span>
 	{:else}
 		<div class="flex justify-between px-2 py-1">
 			<div class="flex items-center gap-1">
@@ -117,6 +124,7 @@
 					>{route}</span
 				>
 			</div>
+			<a href="/">B</a>
 			<button class="flex text-sky-500" on:click={() => (showAdd = true)} title="Add">
 				<iconify-icon icon="ic:round-plus" width={25} />
 			</button>

@@ -13,10 +13,7 @@
 		"format": "prettier --plugin-search-dir . --write ."
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-auto": "^2.0.0",
-		"@sveltejs/adapter-netlify": "^2.0.6",
 		"@sveltejs/adapter-node": "^1.2.3",
-		"@sveltejs/adapter-vercel": "^2.4.1",
 		"@sveltejs/kit": "^1.5.0",
 		"@typescript-eslint/eslint-plugin": "^5.45.0",
 		"@typescript-eslint/parser": "^5.45.0",
@@ -40,6 +37,7 @@
 	"type": "module",
 	"dependencies": {
 		"@prisma/client": "^4.12.0",
+		"developer-tools-common-language": "^0.3.6",
 		"iconify-icon": "^1.0.7",
 		"jira.js": "^2.17.0"
 	}
