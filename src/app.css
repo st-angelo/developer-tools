@@ -1,7 +1,7 @@
 @tailwind base;
 
 body {
-	overflow: hidden;
+	@apply overflow-hidden text-accent;
 }
 
 @tailwind components;
@@ -22,13 +22,25 @@ body {
 	@apply rounded-xl bg-gray-100;
 }
 
+/* Shadows */
+.container-shadow {
+	box-shadow: 129px 276px 122px rgba(204, 204, 204, 0.01), 73px 155px 103px rgba(204, 204, 204, 0.05),
+		32px 69px 76px rgba(204, 204, 204, 0.09), 8px 17px 42px rgba(204, 204, 204, 0.1),
+		0px 0px 0px rgba(204, 204, 204, 0.1);
+}
+
+.item-shadow {
+	box-shadow: rgba(0, 0, 0, 0.08) 0px 10px 15px -3px, rgba(0, 0, 0, 0.04) 0px 4px 6px -2px;
+}
+
+/* Loader */
 .dot-flashing {
 	position: relative;
 	width: 10px;
 	height: 10px;
 	border-radius: 5px;
-	background-color: #4a77e5;
-	color: #4a77e5;
+	background-color: #4b774c;
+	color: #4b774c;
 	animation: dot-flashing 1s infinite linear alternate;
 	animation-delay: 0.5s;
 }
@@ -44,8 +56,8 @@ body {
 	width: 10px;
 	height: 10px;
 	border-radius: 5px;
-	background-color: #4a77e5;
-	color: #4a77e5;
+	background-color: #4b774c;
+	color: #4b774c;
 	animation: dot-flashing 1s infinite alternate;
 	animation-delay: 0s;
 }
@@ -54,18 +66,18 @@ body {
 	width: 10px;
 	height: 10px;
 	border-radius: 5px;
-	background-color: #4a77e5;
-	color: #4a77e5;
+	background-color: #4b774c;
+	color: #4b774c;
 	animation: dot-flashing 1s infinite alternate;
 	animation-delay: 1s;
 }
 
 @keyframes dot-flashing {
 	0% {
-		background-color: #4a77e5;
+		background-color: #4b774c;
 	}
 	50%,
 	100% {
-		background-color: rgba(74, 119, 229, 0.2);
+		background-color: rgba(75, 119, 76, 0.2);
 	}
 }

@@ -36,6 +36,8 @@
 			);
 	}
 
+	$: internalNavigating = $navigating && $navigating.to?.route.id === '/task-viewer';
+
 	// #endregion
 
 	let routeNotConfigured: string | null = null;
@@ -45,7 +47,7 @@
 	$: {
 		if ($pageStore.form?.message && !$pageStore.form.message.persistent) {
 			clearTimeout(hideMessageTimeout);
-			hideMessageTimeout = setTimeout(() => (showMessage = false), 3000);
+			hideMessageTimeout = setTimeout(() => (showMessage = false), 30000);
 		}
 	}
 
@@ -113,60 +115,75 @@
 
 <svelte:window on:message={handleParentMessage} />
 
-<div class="relative flex h-screen w-full flex-col overflow-hidden">
-	{#if routeNotConfigured}
-		<span>Your route {routeNotConfigured} is not configured.</span>
-	{:else}
-		<div class="flex justify-between px-2 py-1">
-			<div class="flex items-center gap-1">
-				<span class="font-semibold">Page:</span>
-				<span title={route} class="max-w-[200px] overflow-hidden overflow-ellipsis whitespace-nowrap text-sm italic"
-					>{route}</span
+<div class="relative flex h-full flex-col">
+	<div class="flex grow flex-col">
+		<div class="my-4 flex items-center justify-between px-2">
+			<div class="flex items-center gap-2">
+				<a href="/"><span class="text-xl font-medium">PAGE:</span></a>
+				<span title={route} class="max-w-[230px] overflow-hidden overflow-ellipsis whitespace-nowrap"
+					>{routeNotConfigured || route}</span
 				>
 			</div>
-			<a href="/">B</a>
-			<button class="flex text-sky-500" on:click={() => (showAdd = true)} title="Add">
+			<button
+				class="flex h-8 w-8 items-center justify-center rounded-full bg-theme text-white	outline-none hover:bg-theme-dark focus:bg-theme-dark disabled:bg-gray-500"
+				on:click={() => (showAdd = true)}
+				disabled={Boolean(routeNotConfigured)}
+				title="Add"
+			>
 				<iconify-icon icon="ic:round-plus" width={25} />
 			</button>
 		</div>
-		{#if showAdd}
-			<AddTask onClose={() => (showAdd = false)} />
-		{/if}
-		<TaskFilters
-			{completed}
-			{direction}
-			onChangeCompleted={(value) => {
-				completed = value;
-				page = 1;
-			}}
-			onChangeDirection={(value) => {
-				direction = value;
-				page = 1;
-			}}
-		/>
-		<div class="scrollable flex grow items-center justify-center overflow-y-auto overflow-x-hidden px-3">
-			{#if $navigating}
-				<div class="dot-flashing" />
-			{:else if tasks}
-				<div class="flex w-full flex-col items-center gap-2 self-start">
-					{#if tasks.length > 0}
-						{#each tasks as task (task.id)}
-							<Task {task} />
-						{/each}
+		<div
+			class="container-shadow flex grow flex-col rounded-lg bg-white"
+			class:blur-sm={showAdd}
+			class:pointer-events-none={showAdd}
+			class:select-none={showAdd}
+		>
+			{#if routeNotConfigured}
+				<span class="m-auto text-sm font-medium">The route {routeNotConfigured} is not configured.</span>
+			{:else}
+				<TaskFilters
+					{completed}
+					{direction}
+					onChangeCompleted={(value) => {
+						completed = value;
+						page = 1;
+					}}
+					onChangeDirection={(value) => {
+						direction = value;
+						page = 1;
+					}}
+				/>
+				<div class="scrollable flex max-h-[530px] grow flex-col items-center gap-3 overflow-y-auto p-5">
+					{#if internalNavigating}
+						<div class="dot-flashing m-auto" />
+					{:else if tasks}
+						{#if tasks.length > 0}
+							{#each tasks as task (task.id)}
+								<Task {task} />
+							{/each}
+						{:else}
+							<span class="m-auto text-sm">No issues associated with this page & filters</span>
+						{/if}
 					{:else}
-						<i class="mt-2 text-sm">No tasks associated with this page & filters</i>
+						<span>{$pageStore.data.error}</span>
 					{/if}
 				</div>
-			{:else}
-				<span>{$pageStore.data.error}</span>
+				<div class="flex justify-center px-5 pb-5 pt-1">
+					<Pagination {page} total={data.total} onPageChange={(value) => (page = value)} />
+				</div>
 			{/if}
 		</div>
-		<div class="flex justify-center p-1">
-			<Pagination {page} total={data.total} onPageChange={(value) => (page = value)} />
-		</div>
+	</div>
+	{#if showAdd}
+		<AddTask onClose={() => (showAdd = false)} />
 	{/if}
 	{#if showMessage}
-		<div in:fly={{ y: 50, duration: 150 }} out:fly={{ x: 700, duration: 200 }} class="absolute bottom-2 w-full p-3">
+		<div
+			in:fly|local={{ y: 50, duration: 150 }}
+			out:fly|local={{ x: 700, duration: 200 }}
+			class="absolute bottom-8 w-full p-5"
+		>
 			<Message message={$pageStore.form?.message} onClose={() => (showMessage = false)} />
 		</div>
 	{/if}

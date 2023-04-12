@@ -21,42 +21,52 @@
 	method="post"
 	action="?/addTask"
 	use:enhance={submitAddTask}
-	class="absolute top-0 flex w-full flex-col gap-2 bg-sky-100 px-3 py-2 shadow-lg sm:flex-row"
-	transition:fly={{ y: -150 }}
+	class="absolute top-5 flex w-full flex-col gap-5 rounded-lg bg-white p-5 shadow-xl"
+	transition:fly|local={{ y: -150, duration: 200 }}
 >
+	<div class="flex justify-between">
+		<h2 class="text-xl font-medium">Link an issue</h2>
+		<button
+			type="button"
+			on:click={onClose}
+			class="rounded-fulloutline-none flex h-7 w-7 items-center justify-center rounded-full hover:bg-theme-faded focus:bg-theme-faded"
+			><iconify-icon icon="ph:x-bold" /></button
+		>
+	</div>
 	<input id="appCode" name="appCode" hidden value={$page.url.searchParams.get('appCode')} />
 	<input id="route" name="route" hidden value={$page.url.searchParams.get('route')} />
-	<div class="flex items-center gap-2">
+	<div class="flex flex-col gap-1">
+		<label for="issueKey" class="font-medium">Issue key*</label>
 		<input
 			id="issueKey"
 			name="issueKey"
-			placeholder="Issue key"
+			placeholder="Enter key here"
 			type="text"
 			required
 			disabled={loading}
-			class="min-w-0 rounded-md border-[1px] border-sky-500 px-2 py-1 text-sm outline-none focus:border-sky-600"
+			class="min-w-0 rounded-md bg-faded px-5 py-3 outline-none hover:bg-gray-100  focus:bg-gray-100"
 			value={$page.form?.data?.issueKey || ''}
 		/>
-		<button type="button" on:click={onClose} class="flex text-sky-500"
-			><iconify-icon icon="material-symbols:close-rounded" width={18} /></button
-		>
 	</div>
-	<div class="flex justify-between px-1">
-		<div class="flex items-center gap-2">
+	<div class="flex items-center gap-2">
+		<div class="relative h-5 w-5">
 			<input
 				id="removeOnCompleted"
 				name="removeOnCompleted"
 				type="checkbox"
-				class="h-4 w-4"
+				class="peer h-full w-full appearance-none rounded-md bg-faded"
 				disabled={loading}
 				checked={$page.form?.data?.removeOnCompleted || false}
 			/>
-			<label for="removeOnCompleted" class="text-sm">Remove on completed</label>
+			<svg height="20" width="20" class="pointer-events-none absolute left-0 top-0 fill-white peer-checked:fill-theme">
+				<circle cx="10" cy="10" r="4" />
+			</svg>
 		</div>
-		<button
-			disabled={loading}
-			class="rounded-md bg-sky-500 px-4 font-semibold text-white disabled:bg-gray-400"
-			type="submit">Add</button
-		>
+		<label for="removeOnCompleted" class="">Remove on completion</label>
 	</div>
+	<button
+		disabled={loading}
+		class="rounded-lg bg-theme py-2 text-white outline-none hover:bg-theme-dark focus:bg-theme-dark disabled:bg-gray-500"
+		type="submit">Link</button
+	>
 </form>

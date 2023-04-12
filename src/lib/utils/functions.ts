@@ -3,6 +3,15 @@ import type { FormResponse } from '$lib/data/types/general';
 import type { GetTasksOptions } from '$lib/data/types/task';
 import type { Task } from '@prisma/client';
 
+export function getCompactName(name: string | undefined) {
+	if (!name) return '';
+	const parts = name.split(' ');
+	const last = parts.pop();
+	if (!last) return '';
+	parts.push(`${last.substring(0, 1)}.`);
+	return parts.join(' ');
+}
+
 export function setQueryParam(name: string, value: string) {
 	const url = new URL(window.location.href);
 	url.searchParams.set(name, value);
