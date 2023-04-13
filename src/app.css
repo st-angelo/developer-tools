@@ -15,11 +15,13 @@ body {
 
 /* Unfortunately does not work in Firefox :( */
 .scrollable::-webkit-scrollbar {
-	@apply w-3 bg-gray-300;
+	width: 0.4rem;
+	background-color: rgb(243 244 246);
 }
 
 .scrollable::-webkit-scrollbar-thumb {
-	@apply rounded-xl bg-gray-100;
+	border-radius: 0.75rem;
+	background-color: rgb(209 213 219);
 }
 
 /* Shadows */
