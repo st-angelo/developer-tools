@@ -144,7 +144,7 @@
 			class:select-none={showAdd}
 		>
 			{#if routeNotConfigured}
-				<span class="font-mediump m-auto px-5 text-center text-sm"
+				<span title={routeNotConfigured} class="font-mediump m-auto px-5 text-center text-sm"
 					>The route {getCompactString(routeNotConfigured, 60)} is not configured.</span
 				>
 			{:else}
