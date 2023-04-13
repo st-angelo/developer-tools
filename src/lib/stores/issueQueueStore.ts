@@ -4,6 +4,7 @@ import { writable, type Subscriber } from 'svelte/store';
 export type IssueQueueItem = {
 	appCode?: string;
 	route?: string;
+	completed?: boolean;
 	issue: AtlassianIssueDto;
 };
 

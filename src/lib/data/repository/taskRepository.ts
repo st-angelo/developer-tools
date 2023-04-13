@@ -93,13 +93,7 @@ export async function addTask({
 
 export async function removeTask(id: number): Promise<OperationResponse> {
 	try {
-		const result = await prisma.task.delete({ where: { id } });
-		if (!result) {
-			return {
-				status: 'error',
-				error: 'No task was removed',
-			};
-		}
+		await prisma.task.delete({ where: { id } });
 		return {
 			status: 'success',
 			data: null,
@@ -109,6 +103,24 @@ export async function removeTask(id: number): Promise<OperationResponse> {
 		return {
 			status: 'error',
 			error: 'Could not remove task',
+		};
+	}
+}
+
+export async function updateTasksStatusAndCleanup(issueKey: string, completed: boolean): Promise<OperationResponse> {
+	try {
+		await prisma.task.updateMany({ data: { completed }, where: { issueKey } });
+		if (completed)
+			await prisma.task.deleteMany({ where: { issueKey, completed: true, removeOnCompleted: true } });
+		return {
+			status: 'success',
+			data: null,
+		};
+	} catch (err) {
+		console.error(err);
+		return {
+			status: 'error',
+			error: 'Could not update tasks status and cleanup tasks',
 		};
 	}
 }

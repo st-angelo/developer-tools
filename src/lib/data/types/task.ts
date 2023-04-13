@@ -7,6 +7,7 @@ export type TaskDto = {
 	route: string;
 	issueKey: string;
 	completed: boolean;
+	removeOnCompleted: boolean;
 	issue: AtlassianIssueDto | null;
 };
 

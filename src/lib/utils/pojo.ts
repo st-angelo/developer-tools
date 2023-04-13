@@ -11,6 +11,7 @@ class PojoUtil {
 			route: task.route,
 			issueKey: task.issueKey,
 			completed: task.completed,
+			removeOnCompleted: task.removeOnCompleted,
 			issue,
 		};
 	}

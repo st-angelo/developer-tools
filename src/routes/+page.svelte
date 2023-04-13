@@ -7,7 +7,7 @@
 
 <Animate>
 	<div class="flex h-full items-center justify-center">
-		<div class="container-shadow flex w-full flex-col gap-5 rounded-lg bg-white p-10 pb-32">
+		<div class="container-shadow flex w-full flex-col gap-5 rounded-lg bg-white p-10 pb-24">
 			<h2 class="text-2xl font-bold">DevTools</h2>
 			<p>
 				A collection of tools meant to improve the experience of developers and testers alike. You can browse them
@@ -20,7 +20,7 @@
 						href={tool.route}>{tool.name}<iconify-icon icon="material-symbols:arrow-right-alt-rounded" width={18} /></a
 					>
 				{/each}
-				<span class="mt-5 text-center text-sm font-medium text-theme">And more to come!</span>
+				<span class="mt-12 text-center text-sm font-medium text-theme">And more to come!</span>
 			</div>
 		</div>
 	</div>

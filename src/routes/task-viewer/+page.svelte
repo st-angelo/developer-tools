@@ -75,26 +75,38 @@
 
 	function handleQueuedIssue(event: MessageEvent) {
 		if (!tasks) return;
+
+		let shouldRefresh = false;
+
 		const queuedIssue = JSON.parse(event.data) as IssueQueueItem;
 		if (queuedIssue.appCode === appCode && queuedIssue.route === route) {
 			const task = tasks.find((task) => task.issueKey === queuedIssue.issue.key);
 			if (task) {
 				task.issue = queuedIssue.issue;
+				task.completed = queuedIssue.completed || false;
+				shouldRefresh = task.completed && (task.removeOnCompleted || completed !== 1);
 			} else {
-				goto(`/task-viewer?appCode=${appCode}&route=${route}&page=${page}&direction=${direction}`, {
-					replaceState: true,
-					keepFocus: true,
-					invalidateAll: true,
-				});
+				shouldRefresh = true;
 			}
 		}
 		if (!queuedIssue.appCode && !queuedIssue.route) {
 			const task = tasks.find((task) => task.issueKey === queuedIssue.issue.key);
 			if (task) {
 				task.issue = queuedIssue.issue;
+				task.completed = queuedIssue.completed || false;
+				shouldRefresh = task.completed && (task.removeOnCompleted || completed !== 1);
 			}
 		}
-		tasks = [...tasks];
+		if (shouldRefresh) {
+			goto(
+				`/task-viewer?appCode=${appCode}&route=${route}&completed=${completed}&page=${page}&direction=${direction}`,
+				{
+					replaceState: true,
+					keepFocus: true,
+					invalidateAll: true,
+				},
+			);
+		} else tasks = [...tasks];
 	}
 
 	function subscribeToIssueUpdates() {

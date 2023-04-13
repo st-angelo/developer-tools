@@ -54,7 +54,7 @@
 				id="removeOnCompleted"
 				name="removeOnCompleted"
 				type="checkbox"
-				class="peer h-full w-full appearance-none rounded-md bg-faded"
+				class="peer h-full w-full appearance-none rounded-md bg-faded hover:bg-withered "
 				disabled={loading}
 				checked={$page.form?.data?.removeOnCompleted || false}
 			/>
