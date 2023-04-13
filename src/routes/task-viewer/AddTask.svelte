@@ -59,10 +59,10 @@
 				checked={$page.form?.data?.removeOnCompleted || false}
 			/>
 			<svg height="20" width="20" class="pointer-events-none absolute left-0 top-0 fill-white peer-checked:fill-theme">
-				<circle cx="10" cy="10" r="4" />
+				<rect x="5" y="5" width="10" height="10" rx="3" />
 			</svg>
 		</div>
-		<label for="removeOnCompleted" class="">Remove on completion</label>
+		<label for="removeOnCompleted" class="select-none">Remove on completion</label>
 	</div>
 	<button
 		disabled={loading}
