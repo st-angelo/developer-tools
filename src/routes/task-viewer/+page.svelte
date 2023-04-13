@@ -11,6 +11,7 @@
 	import Pagination from '$lib/components/Pagination.svelte';
 	import TaskFilters from './TaskFilters.svelte';
 	import { Events, type DevToolsMessageEvent } from 'developer-tools-common-language';
+	import { getCompactString } from '$lib/utils/functions';
 
 	export let data;
 
@@ -123,7 +124,7 @@
 					><iconify-icon icon="ion:arrow-back-outline" width="18" /></a
 				>
 				<span class="text-xl font-medium">PAGE:</span>
-				<span title={route} class="max-w-[230px] overflow-hidden overflow-ellipsis whitespace-nowrap"
+				<span title={route} class="max-w-[230px] overflow-hidden overflow-ellipsis whitespace-nowrap text-[15px]"
 					>{routeNotConfigured || route}</span
 				>
 			</div>
@@ -143,7 +144,9 @@
 			class:select-none={showAdd}
 		>
 			{#if routeNotConfigured}
-				<span class="m-auto text-sm font-medium">The route {routeNotConfigured} is not configured.</span>
+				<span class="font-mediump m-auto px-5 text-center text-sm"
+					>The route {getCompactString(routeNotConfigured, 60)} is not configured.</span
+				>
 			{:else}
 				<TaskFilters
 					{completed}

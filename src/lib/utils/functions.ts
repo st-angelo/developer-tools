@@ -12,6 +12,12 @@ export function getCompactName(name: string | undefined) {
 	return parts.join(' ');
 }
 
+export function getCompactString(value: string | undefined, maxLength: number) {
+	if (!value) return '';
+	if (value.length <= maxLength + 3) return value;
+	return value.substring(0, maxLength) + '...';
+}
+
 export function setQueryParam(name: string, value: string) {
 	const url = new URL(window.location.href);
 	url.searchParams.set(name, value);
