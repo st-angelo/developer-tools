@@ -6,13 +6,21 @@
 </script>
 
 <Animate>
-	<div class="flex min-h-screen w-full items-center justify-center" in:scale>
-		<div class="flex flex-col items-center justify-center gap-5 rounded-lg p-10 shadow-lg drop-shadow-lg">
-			<h2 class="text-lg font-bold">Developer widgets</h2>
+	<div class="flex h-full items-center justify-center">
+		<div class="container-shadow flex w-full flex-col gap-5 rounded-lg bg-white p-10 pb-32">
+			<h2 class="text-2xl font-bold">DevTools</h2>
+			<p>
+				A collection of tools meant to improve the experience of developers and testers alike. You can browse them
+				below.
+			</p>
 			<div class="flex flex-col gap-3">
 				{#each data.tools as tool}
-					<a class="rounded-lg bg-green-600 px-5 py-3 font-bold text-white" href={tool.route}>{tool.name}</a>
+					<a
+						class="flex items-center justify-between rounded-lg border-2 border-theme bg-white px-5 py-3 font-bold text-theme outline-none hover:bg-theme hover:text-white focus:bg-theme focus:text-white"
+						href={tool.route}>{tool.name}<iconify-icon icon="material-symbols:arrow-right-alt-rounded" width={18} /></a
+					>
 				{/each}
+				<span class="mt-5 text-center text-sm font-medium text-theme">And more to come!</span>
 			</div>
 		</div>
 	</div>

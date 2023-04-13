@@ -119,7 +119,10 @@
 	<div class="flex grow flex-col">
 		<div class="my-4 flex items-center justify-between px-2">
 			<div class="flex items-center gap-2">
-				<a href="/"><span class="text-xl font-medium">PAGE:</span></a>
+				<a href="/" title="Go back" class="contents outline-none hover:text-theme focus:text-theme"
+					><iconify-icon icon="ion:arrow-back-outline" width="18" /></a
+				>
+				<span class="text-xl font-medium">PAGE:</span>
 				<span title={route} class="max-w-[230px] overflow-hidden overflow-ellipsis whitespace-nowrap"
 					>{routeNotConfigured || route}</span
 				>
